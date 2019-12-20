@@ -4,11 +4,12 @@ use strict ;
 use warnings ;
 
 use constant {
-    _TS_CFG_OUTDIR       => "<PATH TO OUTPUT DIRECTORY>",
+    _TS_CFG_OUTDIR       => "<OUTPUT_FILE_DIRECTORY>",
     _TS_CFG_OUTFILE      => "Restockplus_Tweakscale.cfg",
 
-    _RESTOCKPLUS_PART_PATH => "<PATHTOKSPINSTALLATION>/Kerbal Space Program/Gamedata/ReStockPlus/Parts",
-    _RESTOCKRIGIDLEGS_PART_PATH => "<PATHTOKSPINSTALLATION>/Kerbal Space Program/Gamedata/RestockRigidLegs/Parts",
+    _RESTOCKPLUS_PART_PATH => "<PATH_TO_GAMEDATA>/RestockRigidLegs/Parts",
+    _RESTOCKRIGIDLEGS_PART_PATH => "<PATH_TO_GAMEDATA>/ReStockPlus/Parts",
+
 
     _TS_CFG_NONE          => "TS_none.cfg",
     _TS_CFG_BEHAVIOR      => "TS_Behavior.cfg",
@@ -124,6 +125,7 @@ sub readModFolder
     my @entries = grep { /^(?!\..*)/ && ((-d "$pdir/$_") || ( /\.cfg$/ )) } readdir($dh);
     closedir $dh;
 
+    my ($mod_name) = $pdir =~ m/.*\/(.+)\/Parts/ ;
 
     foreach (@entries)
     {
@@ -215,6 +217,7 @@ sub readModFolder
               part_is_radial   => $part_is_radial,
               scale_method     => undef,
               scale_behavior   => undef,
+              mod_name         => $mod_name,
            } ;
            push @parts, $struct ;
         }
@@ -326,13 +329,14 @@ sub writeCFG
         {
             $string_to_write = $string_part_config ;
         }
+        $string_to_write =~ s/__MODNAME__/$h->{mod_name}/g ;
         $string_to_write =~ s/__PARTNAME__/$h->{part_name}/g ;
         $string_to_write =~ s/__PARTDESC__/$h->{part_description}/g ;
         $string_to_write =~ s/__SCALETYPE__/$h->{scale_method}/g ;
 
         print $fh $string_to_write . "\n" ;
 
-        print $fhtest join (";", $h->{part_name}, $h->{part_description}, $h->{scale_method}, $h->{scale_behavior}, $h->{part_size1}, "\n") ;
+        print $fhtest join (";", $h->{mod_name}, $h->{part_name}, $h->{part_description}, $h->{scale_method}, $h->{scale_behavior}, $h->{part_size1}, "\n") ;
 
     }
     close $fh ;
