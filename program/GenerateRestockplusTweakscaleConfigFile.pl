@@ -7,8 +7,8 @@ use constant {
     _TS_CFG_OUTDIR       => "<OUTPUT_FILE_DIRECTORY>",
     _TS_CFG_OUTFILE      => "Restockplus_Tweakscale.cfg",
 
-    _RESTOCKPLUS_PART_PATH => "<PATH_TO_GAMEDATA>/RestockRigidLegs/Parts",
-    _RESTOCKRIGIDLEGS_PART_PATH => "<PATH_TO_GAMEDATA>/ReStockPlus/Parts",
+    _RESTOCKPLUS_PART_PATH => "<PATH_TO_GAMEDATA>/Restockplus/Parts",
+    _RESTOCKRIGIDLEGS_PART_PATH => "<PATH_TO_GAMEDATA>/RestockRigidLegs/Parts",
 
 
     _TS_CFG_NONE          => "TS_none.cfg",
