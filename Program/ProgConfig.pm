@@ -11,7 +11,7 @@ our @EXPORT = qw(%EXISTING_SIZES @PREFERED_SCALE_METHOD %BEHAVIORS
     _PART_CFG_NONE _PART_CFG_SCALE _PART_CFG_BEHAVIOR _PART_CFG_SCALEBEHAVIOR);
 
 use constant {
-    _PROG_VERSION        => "v1.0b",
+    _PROG_VERSION           => "v1.1",
 
     _PART_CFG_NONE          => $_CONFIG{_PROGRAM_DIR} . "/TemplateCfg/Part_TS_none.cfg",
     _PART_CFG_SCALE         => $_CONFIG{_PROGRAM_DIR} . "/TemplateCfg/Part_TS_Scale.cfg",
