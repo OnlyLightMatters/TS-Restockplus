@@ -1,3 +1,4 @@
+use strict ;
 use warnings ;
 						   
 BEGIN {
@@ -5,3 +6,5 @@ BEGIN {
 }
 
 use main ;
+
+main() ;
