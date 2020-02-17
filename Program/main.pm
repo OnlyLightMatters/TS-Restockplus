@@ -166,9 +166,9 @@ sub readAddOnFolder
                 }   
             }
 
-            printf("\n--------------------PART_NAME\----------------\n%s\n------\n", $part_name) ;
+            #printf("\n--------------------PART_NAME\----------------\n%s\n------\n", $part_name) ;
 
-            printf("COUCOU %s\n", $pdir ."/" .$part_name . "/" . $ppartprefix) ;
+            #printf("COUCOU %s\n", $pdir ."/" .$part_name . "/" . $ppartprefix) ;
 
             my ($item, $part_size1, $part_size2, $part_variant) = $part_name =~ /^$ppartprefix-(.*)-(\d+)-(\d+)-(\d+)$/ ;
 
@@ -187,16 +187,16 @@ sub readAddOnFolder
                 # OR
                 # Last chance to get a size from the path
                 my ($oside) = $pdir =~ /.*\/([^\/]+)/ ;
-                printf("---DEBUG LAST CHANCE partname=%s ; oside=%s---\n", $part_name, $oside) ;
+                #printf("---DEBUG LAST CHANCE partname=%s ; oside=%s---\n", $part_name, $oside) ;
                 $part_size1     = ($oside =~ m/\d+/    ? $oside : -1) ; # May inlude radial
-                printf("---DEBUG SIZE %d\n", $part_size1) ;
+                #printf("---DEBUG SIZE %d\n", $part_size1) ;
             }
             if ( !defined $item )
             {
                 # Example here we have a part [...]/ReStockPlus/Parts/Engine/125/restock-engine-125-valiant
                 # item is engine-125-valiant
                 ($item) = $part_name =~ /^$ppartprefix-(.*)$/ ;
-                printf("---DEBUG pdir/partname=%s%s---\n", $pdir, $part_name) ;
+                #printf("---DEBUG pdir/partname=%s%s---\n", $pdir, $part_name) ;
  
                 # oside is 125
                 my ($oside) = $pdir =~ /.*\/([^\/]+)/ ;
@@ -212,7 +212,7 @@ sub readAddOnFolder
             (defined $known_parts{$part_name}) && do { next ;} ;
 
             # Last check on part name to detect a radial part
-            printf("DEBUG item / partname= %s,%s\n", $item, $part_name) ;
+            #printf("DEBUG item / partname= %s,%s\n", $item, $part_name) ;
 
             if ($item =~ m/radial/)
             {
@@ -241,7 +241,6 @@ sub readAddOnFolder
             {
                 $struct->{is_ignored} = 1 ;             
             }
-            push @parts, $struct ;
             push @{$parts_per_mod{$modname}->{parts}}, $struct ;
         }
     }
@@ -272,7 +271,7 @@ sub parse
 
     foreach my $a (@addons)
     {
-        printf("parse=%s\n", $_CONFIG{_TS_GAMEDATA_PATH} . $a->{_name} . " / " . $a->{_part_prefix}) ;
+        printf("Parsing %s\n", $a->{_name}) ;
         readAddOnFolder($_CONFIG{_TS_GAMEDATA_PATH} . $a->{_name} . "/Parts",
                         $a->{_name})  ;
     }
@@ -281,18 +280,13 @@ sub parse
 sub process
 # Analyse scaling method and behavior from the part itself and rules
 {
-    foreach my $h (@parts)
-    {
-        $h->{scale_method}   = getScaleMethodFromPart($h) ;
-        $h->{scale_behavior} = getScaleBehaviorFromPart($h) ;
-    }
-
     # Foreach addon
     foreach my $addon ( keys %parts_per_mod )
     {
         # Foreach part for this addon
         foreach my $part ( @{$parts_per_mod{$addon}->{parts}} )
         {
+            printf("Processing %s\n", $part->{part_name}) ;
             $part->{scale_method}   = getScaleMethodFromPart($part) ;
             $part->{scale_behavior} = getScaleBehaviorFromPart($part) ;
         }
@@ -379,8 +373,6 @@ sub main
    $string_part_config_behavior       = getCFGFile(_PART_CFG_BEHAVIOR) ;
    $string_part_config_scale          = getCFGFile(_PART_CFG_SCALE) ;
    $string_part_config                = getCFGFile(_PART_CFG_NONE) ; 	
-
-   printf("coucou\n") ;
 
    prepare ;
    parse ;
