@@ -15,6 +15,7 @@ our @EXPORT = qw(main);
 # VARIABLES
 
 my @parts ;
+my %parts_per_mod ;
 my %known_parts ;
 
 
@@ -108,6 +109,9 @@ sub readAddOnFolder
 # Arg is a valid path to a mod part folder
 {
     my $pdir = shift ;
+    my $modname = shift ;
+
+    my $ppartprefix = $parts_per_mod{$modname}->{partprefix} ;
 
     opendir(my $dh, $pdir) || die "Can't opendir $pdir: $!";
     my @entries = grep { /^(?!\..*)/ && ((-d "$pdir/$_") || ( /\.cfg$/ )) } readdir($dh);
@@ -120,7 +124,7 @@ sub readAddOnFolder
         if ( -d "$pdir/$_" )
         # Go deeper
         {
-            readAddOnFolder("$pdir/$_") ;
+            readAddOnFolder("$pdir/$_", $modname) ;
         }
         else
         # Process .cfg part file
@@ -162,16 +166,20 @@ sub readAddOnFolder
                 }   
             }
 
-            my ($item, $part_size1, $part_size2, $part_variant) = $part_name =~ /^restock-(.*)-(\d+)-(\d+)-(\d+)$/ ;
+            printf("\n--------------------PART_NAME\----------------\n%s\n------\n", $part_name) ;
+
+            printf("COUCOU %s\n", $pdir ."/" .$part_name . "/" . $ppartprefix) ;
+
+            my ($item, $part_size1, $part_size2, $part_variant) = $part_name =~ /^$ppartprefix-(.*)-(\d+)-(\d+)-(\d+)$/ ;
 
             if ( !defined $item )
             {
-                ($item, $part_size1, $part_variant) = $part_name =~ /^restock-(.*)-(\d+)-(\d+)$/ ;
+                ($item, $part_size1, $part_variant) = $part_name =~ /^$ppartprefix-(.*)-(\d+)-(\d+)$/ ;
                 $part_size2 = -1 ;
             }
             if ( !defined $item )
             {
-                ($item, $part_variant) = $part_name =~ /^restock-(.*)-(\d+)$/ ;
+                ($item, $part_variant) = $part_name =~ /^$ppartprefix-(.*)-(\d+)$/ ;
                 $part_size1 = -1 ;
                 $part_size2 = -1 ;
 
@@ -187,8 +195,8 @@ sub readAddOnFolder
             {
                 # Example here we have a part [...]/ReStockPlus/Parts/Engine/125/restock-engine-125-valiant
                 # item is engine-125-valiant
-                ($item) = $part_name =~ /^restock-(.*)$/ ;
-                #printf("---DEBUG pdir/partname=%s%s---\n", $pdir, $part_name) ;
+                ($item) = $part_name =~ /^$ppartprefix-(.*)$/ ;
+                printf("---DEBUG pdir/partname=%s%s---\n", $pdir, $part_name) ;
  
                 # oside is 125
                 my ($oside) = $pdir =~ /.*\/([^\/]+)/ ;
@@ -204,6 +212,8 @@ sub readAddOnFolder
             (defined $known_parts{$part_name}) && do { next ;} ;
 
             # Last check on part name to detect a radial part
+            printf("DEBUG item / partname= %s,%s\n", $item, $part_name) ;
+
             if ($item =~ m/radial/)
             {
                $part_is_radial = 1 ;
@@ -232,91 +242,133 @@ sub readAddOnFolder
                 $struct->{is_ignored} = 1 ;             
             }
             push @parts, $struct ;
+            push @{$parts_per_mod{$modname}->{parts}}, $struct ;
         }
     }
 } # --- readAddOnFolder() ---
 
+sub prepare
+# prepare the structure to host loaded parts
+{
+#parts_per_mod
+    my @addons = @{$_CONFIG{_ADD_ONS}} ;
+
+    foreach my $a (@addons)
+    {
+        $parts_per_mod{$a->{_name}}->{parts}      = () ; # parts will be pushed here
+        $parts_per_mod{$a->{_name}}->{partprefix} = $a->{_part_prefix} ; 
+        $parts_per_mod{$a->{_name}}->{outfile}    = $_CONFIG{_TS_CFG_OUTDIR} . $a->{_out_file} ; 
+        $parts_per_mod{$a->{_name}}->{testfile}   = $_CONFIG{_TS_CFG_OUTDIR} . $a->{_test_file} ; 
+        $parts_per_mod{$a->{_name}}->{commonname} = $_CONFIG{_TS_CFG_OUTDIR} . $a->{_common_name} ;
+    }
+}  # --- prepare() ---
 
 
 sub parse
+# Main function for parsing all files
 {
 	# We are going to parse all addons defined in _CONFIG => _ADD_ONS
-    readAddOnFolder _RESTOCKPLUS_PART_PATH ;
-    readAddOnFolder _RESTOCKRIGIDLEGS_PART_PATH ;
+    my @addons = @{$_CONFIG{_ADD_ONS}} ;
+
+    foreach my $a (@addons)
+    {
+        printf("parse=%s\n", $_CONFIG{_TS_GAMEDATA_PATH} . $a->{_name} . " / " . $a->{_part_prefix}) ;
+        readAddOnFolder($_CONFIG{_TS_GAMEDATA_PATH} . $a->{_name} . "/Parts",
+                        $a->{_name})  ;
+    }
 } # --- parse() ---
 
 sub process
+# Analyse scaling method and behavior from the part itself and rules
 {
     foreach my $h (@parts)
     {
         $h->{scale_method}   = getScaleMethodFromPart($h) ;
         $h->{scale_behavior} = getScaleBehaviorFromPart($h) ;
     }
+
+    # Foreach addon
+    foreach my $addon ( keys %parts_per_mod )
+    {
+        # Foreach part for this addon
+        foreach my $part ( @{$parts_per_mod{$addon}->{parts}} )
+        {
+            $part->{scale_method}   = getScaleMethodFromPart($part) ;
+            $part->{scale_behavior} = getScaleBehaviorFromPart($part) ;
+        }
+    }
+
 } # --- process() ---
 
 
 sub writeCFG
+# Write the godamn patch!
 { 
-    open (my $fh, ">" . _TS_CFG_OUTDIR . "/" . _TS_CFG_OUTFILE) or die "KAPUT FILE @!" ;
-    open (my $fhtest, ">" . _TS_CFG_OUTDIR . "/" . _TS_CFG_OUTFILE . ".test.csv") or die "KAPUT FILE @!" ;
-
-
-    print $fh "// Tweakscale File for Restockplus & Rigid legs\n" ;
-    print $fh "// BETA VERSION USE AT YOUR OWN RISKS - version " . _PROG_VERSION . "\n" ;
-    print $fh "// xot1643\@Github\n" ;
-    print $fh "// To be placed in <KSP ROOT>/GameData/TweakScale/patches\n\n" ;
-    print $fh "// Notes :\n" ;
-    print $fh "// ---------------------------------------\n" ;
-    print $fh "// Docking ports, fairing and ladders are ignored as they already are for stock parts in Tweakscale \n" ;
-    print $fh "// Docking ports : seems to be a very bas idea to resize them.\n" ;
-    print $fh "// Fairings : scaling is ok AFTER building them, are buggy if scaled BEFORE building them.\n" ;
-    print $fh "// Ladders  : dunno but seems to be a bad idea as well.\n\n" ;
-
-
-    foreach my $h (@parts)
+    # Foreach addon
+    foreach my $addon ( keys %parts_per_mod )
     {
-        my $string_to_write ;
+        printf("Generating patch file for addon " . $addon . "\n") ;
+        open (my $fh,     ">" . $parts_per_mod{$addon}->{outfile}) or die "KAPUT FILE $!" ;
+        open (my $fhtest, ">" . $parts_per_mod{$addon}->{testfile}) or die "KAPUT FILE $!" ;
 
-        # Size is defined, a behavior has been identified,  
-        if ( ($h->{scale_behavior} ne "none") && ($h->{part_size1} != -1) )
-        {
-            $string_to_write = $string_part_config_behavior_scale ;
-            $string_to_write =~ s/__BEHAVIOR__/$h->{scale_behavior}/g ;
-            $string_to_write =~ s/__SIZE__/$h->{part_size1}/g ;
-        }
-        elsif ( ($h->{scale_behavior} ne "none") && ($h->{part_size1} == -1) )
-        {
-            $string_to_write = $string_part_config_behavior ;
-            $string_to_write =~ s/__BEHAVIOR__/$h->{scale_behavior}/g ;
-        }
-        elsif ( ($h->{scale_behavior} eq "none") && ($h->{part_size1} != -1) )
-        {
-            $string_to_write = $string_part_config_scale ;
-            $string_to_write =~ s/__SIZE__/$h->{part_size1}/g ;
-        }
-        else
-        # ($$h{scale_behavior} eq "none") && ($$h{part_size1} == -1)
-        {
-            $string_to_write = $string_part_config ;
-        }
-        $string_to_write =~ s/__MODNAME__/$h->{mod_name}/g ;
-        $string_to_write =~ s/__PARTNAME__/$h->{part_name}/g ;
-        $string_to_write =~ s/__PARTDESC__/$h->{part_description}/g ;
-        $string_to_write =~ s/__SCALETYPE__/$h->{scale_method}/g ;
+        print $fh "// Tweakscale File for AddOn $addon\n" ;
+        print $fh "// DON T FORGET TO VALIDATE THIS FILE - version " . $_CONFIG{_PROG_VERSION} . "\n" ;
+        print $fh "// xot1643\@Github\n" ;
+        print $fh "// To be placed in <KSP ROOT>/GameData/TweakScaleCompanion_" . $parts_per_mod{$addon}->{commonname} . "/patches\n\n" ;
+        print $fh "// Notes :\n" ;
+        print $fh "// ---------------------------------------\n" ;
+        print $fh "// Docking ports, fairing and ladders are ignored as they already are for stock parts in Tweakscale \n" ;
+        print $fh "// Docking ports : seems to be a very bas idea to resize them.\n" ;
+        print $fh "// Fairings : scaling is ok AFTER building them, are buggy if scaled BEFORE building them.\n" ;
+        print $fh "// Ladders  : dunno but seems to be a bad idea as well.\n\n" ;
 
-        if ( $h->{is_ignored} )
+
+        # Foreach part for this addon
+        foreach my $h ( @{$parts_per_mod{$addon}->{parts}} )
         {
-            $string_to_write = "// Filtered part\n" . $string_to_write ;
-            $string_to_write =~ s/\R/\n\/\/ /g ;
-        }
-        print $fh $string_to_write . "\n" ;
+            my $string_to_write ;
 
-        print $fhtest join (";", $h->{mod_name}, $h->{part_name}, $h->{part_description}, $h->{scale_method}, $h->{scale_behavior}, $h->{part_size1}, $h->{is_ignored},"\n") ;
+            # Size is defined, a behavior has been identified,  
+            if ( ($h->{scale_behavior} ne "none") && ($h->{part_size1} != -1) )
+            {
+                $string_to_write = $string_part_config_behavior_scale ;
+                $string_to_write =~ s/__BEHAVIOR__/$h->{scale_behavior}/g ;
+                $string_to_write =~ s/__SIZE__/$h->{part_size1}/g ;
+            }
+            elsif ( ($h->{scale_behavior} ne "none") && ($h->{part_size1} == -1) )
+            {
+                $string_to_write = $string_part_config_behavior ;
+                $string_to_write =~ s/__BEHAVIOR__/$h->{scale_behavior}/g ;
+            }
+            elsif ( ($h->{scale_behavior} eq "none") && ($h->{part_size1} != -1) )
+            {
+                $string_to_write = $string_part_config_scale ;
+                $string_to_write =~ s/__SIZE__/$h->{part_size1}/g ;
+            }
+            else
+            # ($$h{scale_behavior} eq "none") && ($$h{part_size1} == -1)
+            {
+                $string_to_write = $string_part_config ;
+            }
+            $string_to_write =~ s/__MODNAME__/$h->{mod_name}/g ;
+            $string_to_write =~ s/__PARTNAME__/$h->{part_name}/g ;
+            $string_to_write =~ s/__PARTDESC__/$h->{part_description}/g ;
+            $string_to_write =~ s/__SCALETYPE__/$h->{scale_method}/g ;
 
-    }
+            if ( $h->{is_ignored} )
+            {
+                $string_to_write = "// Filtered part\n" . $string_to_write ;
+                $string_to_write =~ s/\R/\n\/\/ /g ;
+            }
+            print $fh $string_to_write . "\n" ;
 
-    close $fh ;
-    close $fhtest ;
+            print $fhtest join (";", $h->{mod_name}, $h->{part_name}, $h->{part_description}, $h->{scale_method}, $h->{scale_behavior}, $h->{part_size1}, $h->{is_ignored},"\n") ;
+        } # --- forech part ---
+
+        close $fh ;
+        close $fhtest ;
+    } # --- forech addon ---
+
 } # --- writeCFG() ---
 
 
@@ -329,6 +381,8 @@ sub main
    $string_part_config                = getCFGFile(_PART_CFG_NONE) ; 	
 
    printf("coucou\n") ;
+
+   prepare ;
    parse ;
    process ;
    writeCFG ; 
