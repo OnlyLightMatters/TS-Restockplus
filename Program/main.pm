@@ -91,6 +91,7 @@ sub getScaleMethodFromPart
 {
     my $h = shift ;
     my $item = $h->{item} ;
+    my $identified_scale_method = undef ;
 
     foreach my $i ( @PREFERED_SCALE_METHOD )
     {
@@ -100,9 +101,26 @@ sub getScaleMethodFromPart
         if ( $h->{item} =~ /$scale_entry/ )
         # Found a matching
         {
-            return $i->{$scale_entry} ;
+            $identified_scale_method = $i->{$scale_entry} ;
+            last ; # exit loop
+        }
+    } # --- foreach sub part name
+
+    # if a size exists, method is stack
+    # free -> stack
+    # free_square -> stack_square
+    if ( $h->{part_size1} != -1 )
+    {
+        if ( $identified_scale_method eq "free" )
+        {
+            $identified_scale_method = "stack" ;
+        }
+        elsif ( $identified_scale_method eq "free_square" )
+        {
+            $identified_scale_method = "stack_square" ;
         }
     }
+    return $identified_scale_method ;
 }  # --- getScaleMethodFromPart() ---
 
 sub readAddOnFolder

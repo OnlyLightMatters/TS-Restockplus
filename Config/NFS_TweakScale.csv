@@ -24,10 +24,10 @@ NearFutureSolar;nfs-panel-deploying-blanket-orion-1;// Near Future Solar 1.0.0//
 NearFutureSolar;nfs-panel-deploying-blanket-starship-1;// Near Future Solar 1.0.0// Solar Panel - Blanket - SpaceX Starship;free_square;none;-1;0;
 NearFutureSolar;nfs-panel-deploying-concentrator-1x3x1-juice-1;// Near Future Solar 1.0.0// Solar Panel - Concentrator - JUICE;free_square;none;-1;0;
 NearFutureSolar;nfs-panel-deploying-concentrator-1x4-juno-1;// Near Future Solar 1.0.0// Solar Panel - Concentrator - Juno;free_square;none;-1;0;
-NearFutureSolar;nfs-panel-deploying-curved-25-1;// Near Future Solar 1.0.0// Solar Panel - Solaris - 2.5 to 7.5m;free_square;none;2.5;0;
-NearFutureSolar;nfs-panel-deploying-curved-375-1;// Near Future Solar 1.0.0// Solar Panel - Solaris - 3.75 to 10m;free_square;none;3.75;0;
+NearFutureSolar;nfs-panel-deploying-curved-25-1;// Near Future Solar 1.0.0// Solar Panel - Solaris - 2.5 to 7.5m;stack_square;none;2.5;0;
+NearFutureSolar;nfs-panel-deploying-curved-375-1;// Near Future Solar 1.0.0// Solar Panel - Solaris - 3.75 to 10m;stack_square;none;3.75;0;
 NearFutureSolar;nfs-panel-static-truss-1;// Near Future Solar 1.0.0// Solar Panel - fixed with truss - 4 panels;free_square;none;-1;0;
 NearFutureSolar;nfs-panel-static-truss-2;// Near Future Solar 1.0.0// Solar Panel - fixed with truss - 2 panels;free_square;none;-1;0;
 NearFutureSolar;nfs-panel-static-truss-3;// Near Future Solar 1.0.0// Solar Panel - fixed with truss - 1 panel;free_square;none;-1;0;
-NearFutureSolar;nfs-panel-static-curved-25-1;// Near Future Solar 1.0.0// Solar Panel - Dragon v2 - Curved 1/4, 2.5m;free_square;none;2.5;0;
-NearFutureSolar;nfs-panel-static-curved-375-1;// Near Future Solar 1.0.0// Solar Panel - Curved 1/4, 3.75m;free_square;none;3.75;0;
+NearFutureSolar;nfs-panel-static-curved-25-1;// Near Future Solar 1.0.0// Solar Panel - Dragon v2 - Curved 1/4, 2.5m;stack_square;none;2.5;0;
+NearFutureSolar;nfs-panel-static-curved-375-1;// Near Future Solar 1.0.0// Solar Panel - Curved 1/4, 3.75m;stack_square;none;3.75;0;
