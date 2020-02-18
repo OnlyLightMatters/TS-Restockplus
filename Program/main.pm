@@ -276,7 +276,7 @@ sub prepare
         $parts_per_mod{$a->{_name}}->{partprefix} = $a->{_part_prefix} ; 
         $parts_per_mod{$a->{_name}}->{outfile}    = $_CONFIG{_TS_CFG_OUTDIR} . $a->{_out_file} ; 
         $parts_per_mod{$a->{_name}}->{testfile}   = $_CONFIG{_TS_CFG_OUTDIR} . $a->{_test_file} ; 
-        $parts_per_mod{$a->{_name}}->{commonname} = $_CONFIG{_TS_CFG_OUTDIR} . $a->{_common_name} ;
+        $parts_per_mod{$a->{_name}}->{commonname} = $a->{_common_name} ;
     }
 }  # --- prepare() ---
 
