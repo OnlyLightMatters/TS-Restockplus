@@ -32,6 +32,7 @@ our %EXISTING_SIZES = (
     "25"   => "2.5",
     "375"  => "3.75",
     "50"   => "5",
+    "75"   => "7.5", # Near Future Suite proposes 7.5m parts
 ) ;
 
 
