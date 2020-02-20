@@ -2,7 +2,7 @@ use strict ;
 use warnings ;
 						   
 BEGIN {
-	push @INC, "C:/Dev/TS-Restockplus/Program/" ;
+	push @INC, "." ;
 }
 
 use main ;
