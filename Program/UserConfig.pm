@@ -8,7 +8,8 @@ our @ISA = qw(Exporter) ;
 our @EXPORT = qw(%_CONFIG);
 
 our %_CONFIG = (
-    _PROG_VERSION        => "v2.0",
+    _ADD_ON_PREFIX       => "TweakScaleCompanion_",
+    
     _PROGRAM_DIR         => "C:/Dev/TS-Restockplus/Program/",
     _TS_CFG_OUTDIR       => "C:/Dev/TS-Restockplus/Config/",
     _TS_GAMEDATA_PATH    => "C:/Program Files (x86)/Steam/steamapps/common/KSP18_2DLC_TestTS/GameData/",

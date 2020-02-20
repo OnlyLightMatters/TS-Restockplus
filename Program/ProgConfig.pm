@@ -8,10 +8,11 @@ use UserConfig ;
 require Exporter ;
 our @ISA = qw(Exporter) ;
 our @EXPORT = qw(%EXISTING_SIZES @PREFERED_SCALE_METHOD %BEHAVIORS
+    _PROG_VERSION
     _PART_CFG_NONE _PART_CFG_SCALE _PART_CFG_BEHAVIOR _PART_CFG_SCALEBEHAVIOR);
 
 use constant {
-    _PROG_VERSION           => "v1.1",
+    _PROG_VERSION           => "v2.0",
 
     _PART_CFG_NONE          => $_CONFIG{_PROGRAM_DIR} . "/TemplateCfg/Part_TS_none.cfg",
     _PART_CFG_SCALE         => $_CONFIG{_PROGRAM_DIR} . "/TemplateCfg/Part_TS_Scale.cfg",

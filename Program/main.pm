@@ -264,6 +264,7 @@ sub readAddOnFolder
     }
 } # --- readAddOnFolder() ---
 
+
 sub prepare
 # prepare the structure to host loaded parts
 {
@@ -319,14 +320,16 @@ sub writeCFG
     # Foreach addon
     foreach my $addon ( keys %parts_per_mod )
     {
+        my $addon_name = $_CONFIG{_ADD_ON_PREFIX} . $parts_per_mod{$addon}->{commonname} ;
+
         printf("Generating patch file for addon " . $addon . "\n") ;
         open (my $fh,     ">" . $parts_per_mod{$addon}->{outfile}) or die "KAPUT FILE $!" ;
         open (my $fhtest, ">" . $parts_per_mod{$addon}->{testfile}) or die "KAPUT FILE $!" ;
 
         print $fh "// Tweakscale File for AddOn $addon\n" ;
-        print $fh "// DON T FORGET TO VALIDATE THIS FILE - version " . $_CONFIG{_PROG_VERSION} . "\n" ;
+        print $fh "// DON T FORGET TO VALIDATE THIS FILE - version " . _PROG_VERSION . "\n" ;
         print $fh "// xot1643\@Github\n" ;
-        print $fh "// To be placed in <KSP ROOT>/GameData/TweakScaleCompanion_" . $parts_per_mod{$addon}->{commonname} . "/patches\n\n" ;
+        print $fh "// To be placed in <KSP ROOT>/GameData/" . $addon_name . "/patches\n\n" ;
         print $fh "// Notes :\n" ;
         print $fh "// ---------------------------------------\n" ;
         print $fh "// Docking ports, fairing and ladders are ignored as they already are for stock parts in Tweakscale \n" ;
@@ -362,7 +365,8 @@ sub writeCFG
             {
                 $string_to_write = $string_part_config ;
             }
-            $string_to_write =~ s/__MODNAME__/$h->{mod_name}/g ;
+            
+            $string_to_write =~ s/__MODNAME__/$addon_name/g ;
             $string_to_write =~ s/__PARTNAME__/$h->{part_name}/g ;
             $string_to_write =~ s/__PARTDESC__/$h->{part_description}/g ;
             $string_to_write =~ s/__SCALETYPE__/$h->{scale_method}/g ;
