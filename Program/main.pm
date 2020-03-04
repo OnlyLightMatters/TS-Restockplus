@@ -273,12 +273,13 @@ sub prepare
 
     foreach my $a (@addons)
     {
-        $parts_per_mod{$a->{_name}}->{parts}      = () ; # parts will be pushed here
-        $parts_per_mod{$a->{_name}}->{partprefix} = $a->{_part_prefix} ; 
-        $parts_per_mod{$a->{_name}}->{outfile}    = $_CONFIG{_TS_CFG_OUTDIR} . $a->{_out_file} ; 
-        $parts_per_mod{$a->{_name}}->{testfile}   = $_CONFIG{_TS_CFG_OUTDIR} . $a->{_test_file} ; 
-        $parts_per_mod{$a->{_name}}->{commonname} = $a->{_common_name} ;
-    }
+        $parts_per_mod{$a->{_source_addonname}}->{parts}        = () ; # parts will be pushed here
+        $parts_per_mod{$a->{_source_addonname}}->{partprefix}   = $a->{_part_prefix} ;
+        $parts_per_mod{$a->{_source_addonname}}->{outaddonname} = $a->{_out_addonname} ;
+        $parts_per_mod{$a->{_source_addonname}}->{outfile}      = $_CONFIG{_TS_CFG_OUTDIR} . $a->{_out_file} ; 
+        $parts_per_mod{$a->{_source_addonname}}->{testfile}     = $_CONFIG{_TS_CFG_OUTDIR} . $a->{_test_file} ; 
+        $parts_per_mod{$a->{_source_addonname}}->{commonname}   = $a->{_common_name} ;
+    } # --- foreach addons in UserConfig ---
 }  # --- prepare() ---
 
 
@@ -290,9 +291,9 @@ sub parse
 
     foreach my $a (@addons)
     {
-        printf("Parsing %s\n", $a->{_name}) ;
-        readAddOnFolder($_CONFIG{_TS_GAMEDATA_PATH} . $a->{_name} . "/Parts",
-                        $a->{_name})  ;
+        printf("Parsing %s\n", $a->{_source_addonname}) ;
+        readAddOnFolder($_CONFIG{_TS_GAMEDATA_PATH} . $a->{_source_addonname} . "/Parts",
+                        $a->{_source_addonname})  ;
     }
 } # --- parse() ---
 
@@ -320,16 +321,17 @@ sub writeCFG
     # Foreach addon
     foreach my $addon ( keys %parts_per_mod )
     {
-        my $addon_name = $_CONFIG{_ADD_ON_PREFIX} . $parts_per_mod{$addon}->{commonname} ;
+        my $source_addon_name = $addon ;
+        my $my_add_on         = $parts_per_mod{$addon}->{outaddonname} ;
 
         printf("Generating patch file for addon " . $addon . "\n") ;
-        open (my $fh,     ">" . $parts_per_mod{$addon}->{outfile}) or die "KAPUT FILE $!" ;
+        open (my $fh,     ">" . $parts_per_mod{$addon}->{outfile})  or die "KAPUT FILE $!" ;
         open (my $fhtest, ">" . $parts_per_mod{$addon}->{testfile}) or die "KAPUT FILE $!" ;
 
         print $fh "// Tweakscale File for AddOn $addon\n" ;
-        print $fh "// DON T FORGET TO VALIDATE THIS FILE - version " . _PROG_VERSION . "\n" ;
-        print $fh "// xot1643\@Github\n" ;
-        print $fh "// To be placed in <KSP ROOT>/GameData/" . $addon_name . "/patches\n\n" ;
+        print $fh "// Generated with TS-Restockplus - version " . _PROG_VERSION . "\n" ;
+        print $fh "// onlylightmatters\@Github\n" ;
+        print $fh "// To be placed in <KSP ROOT>/GameData/TweakscaleCompanion/" . $source_addon_name . "/patches\n\n" ;
         print $fh "// Notes :\n" ;
         print $fh "// ---------------------------------------\n" ;
         print $fh "// Docking ports, fairing and ladders are ignored as they already are for stock parts in Tweakscale \n" ;
@@ -365,8 +367,9 @@ sub writeCFG
             {
                 $string_to_write = $string_part_config ;
             }
-            
-            $string_to_write =~ s/__MODNAME__/$addon_name/g ;
+
+            $string_to_write =~ s/__ADDONTOPATCH__/$source_addon_name/g ;            
+            $string_to_write =~ s/__MYADDON__/$my_add_on/g ;
             $string_to_write =~ s/__PARTNAME__/$h->{part_name}/g ;
             $string_to_write =~ s/__PARTDESC__/$h->{part_description}/g ;
             $string_to_write =~ s/__SCALETYPE__/$h->{scale_method}/g ;
