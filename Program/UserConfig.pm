@@ -9,11 +9,10 @@ our @EXPORT = qw(%_CONFIG);
 
 our %_CONFIG = (
     _ADD_ON_PREFIX       => "TweakScaleCompanion_",
- 
-    # To be adjusted for your environment.   
+    
     _PROGRAM_DIR         => "C:/Dev/TS-Restockplus/Program/",
     _TS_CFG_OUTDIR       => "C:/Dev/TS-Restockplus/Config/",
-    _TS_GAMEDATA_PATH    => "C:/Program Files (x86)/Steam/steamapps/common/KSP18_2DLC_TestTS/GameData/",
+    _TS_GAMEDATA_PATH    => "C:/Program Files (x86)/Steam/steamapps/common/Kerbal Space Program/GameData/",
 
 
     # Program will look all part cfg files into folder _TS_GAMEDATA_PATH . "/" . $_source_addonname . "/Parts"
@@ -38,13 +37,13 @@ our %_CONFIG = (
             _test_file        => "RestockRigidLegs_TweakScale.csv",
             _out_addonname    => "TweakScaleCompanion_Restockplus",                      
             _common_name      => "ReStockRigidLegs",},
-        {
-            _source_addonname => "NearFutureSolar",
-            _part_prefix      => "nfs",
-            _out_file         => "NFS_TweakScale.cfg",
-            _test_file        => "NFS_TweakScale.csv",
-            _out_addonname    => "TweakScaleCompanion_NFS",                      
-            _common_name      => "NFS", },
+        # {
+        #     _source_addonname => "NearFutureSolar",
+        #     _part_prefix      => "nfs",
+        #     _out_file         => "NFS_TweakScale.cfg",
+        #     _test_file        => "NFS_TweakScale.csv",
+        #     _out_addonname    => "TweakScaleCompanion_NFS",                      
+        #     _common_name      => "NFS", },
     ],
 ) ;
 

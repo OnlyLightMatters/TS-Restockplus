@@ -1,3 +1,5 @@
+# 4/1/2020 - updated for new restock+ parts : wheel, structural tubes.
+
 package ProgConfig ;
 
 use strict ;
@@ -33,6 +35,7 @@ our %EXISTING_SIZES = (
     "25"   => "2.5",
     "375"  => "3.75",
     "50"   => "5",
+    "5"    => "5",
     "75"   => "7.5", # Near Future Suite proposes 7.5m parts
 ) ;
 
@@ -71,8 +74,10 @@ our @PREFERED_SCALE_METHOD = (
     {truss         => "free"},
     {cabin         => "stack_square"},    
     {stack         => "stack"},
-    {delta         => "free_square"},    
+    {delta         => "free_square"},
+    {wheel         => "free"},
     {wing          => "free_square"},
+    {tube          => "stack"},
     {rcs           => "free"},
     {pod           => "stack_square"},
     {srb           => "stack"},
