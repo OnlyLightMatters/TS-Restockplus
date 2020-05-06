@@ -1,3 +1,5 @@
+# 4/1/2020 - updated for new restock+ release : matching release with ReStockplus'
+
 package main ;
 
 use strict ;
@@ -311,7 +313,6 @@ sub process
             $part->{scale_behavior} = getScaleBehaviorFromPart($part) ;
         }
     }
-
 } # --- process() ---
 
 
@@ -338,6 +339,7 @@ sub writeCFG
         print $fh "// Docking ports : seems to be a very bas idea to resize them.\n" ;
         print $fh "// Fairings : scaling is ok AFTER building them, are buggy if scaled BEFORE building them.\n" ;
         print $fh "// Ladders  : dunno but seems to be a bad idea as well.\n\n" ;
+        print $fh "// Structural Tubes for non MH users : scaling is a bad as MH parts.\n\n" ;
 
 
         # Foreach part for this addon

@@ -10,9 +10,11 @@ our @EXPORT = qw(%_CONFIG);
 our %_CONFIG = (
     _ADD_ON_PREFIX       => "TweakScaleCompanion_",
     
-    _PROGRAM_DIR         => "C:/Dev/TS-Restockplus/Program/",
-    _TS_CFG_OUTDIR       => "C:/Dev/TS-Restockplus/Config/",
-    _TS_GAMEDATA_PATH    => "C:/Program Files (x86)/Steam/steamapps/common/Kerbal Space Program/GameData/",
+    #_PROGRAM_DIR         => "C:/Dev/TS-Restockplus/Program/",
+    _PROGRAM_DIR         => "/mnt/c/Users/Yann/Documents/GitHub/TS-Restockplus/Program/",
+    #_TS_CFG_OUTDIR       => "C:/Dev/TS-Restockplus/Config/",
+    _TS_CFG_OUTDIR       => "/mnt/c/Users/Yann/Documents/GitHub/TS-Restockplus/Config/",
+    _TS_GAMEDATA_PATH    => "/mnt/d/Program Files \(x86\)/Steam/steamapps/common/Kerbal\ Space\ Program/GameData/",
 
 
     # Program will look all part cfg files into folder _TS_GAMEDATA_PATH . "/" . $_source_addonname . "/Parts"
