@@ -14,7 +14,7 @@ our @EXPORT = qw(%EXISTING_SIZES @PREFERED_SCALE_METHOD %BEHAVIORS
     _PART_CFG_NONE _PART_CFG_SCALE _PART_CFG_BEHAVIOR _PART_CFG_SCALEBEHAVIOR);
 
 use constant {
-    _PROG_VERSION           => "v2.0",
+    _PROG_VERSION           => "v1.1.0",
 
     _PART_CFG_NONE          => $_CONFIG{_PROGRAM_DIR} . "/TemplateCfg/Part_TS_none.cfg",
     _PART_CFG_SCALE         => $_CONFIG{_PROGRAM_DIR} . "/TemplateCfg/Part_TS_Scale.cfg",
@@ -77,7 +77,7 @@ our @PREFERED_SCALE_METHOD = (
     {delta         => "free_square"},
     {wheel         => "free"},
     {wing          => "free_square"},
-    {tube          => "stack"},
+    {tube          => "stack_square"},
     {rcs           => "free"},
     {pod           => "stack_square"},
     {srb           => "stack"},
