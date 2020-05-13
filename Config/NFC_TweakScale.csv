@@ -1,0 +1,49 @@
+NearFutureConstruction;adapter-125-0625-1;// Near Future Construction 1.0.0// Adapter - 1.25m to 1x0.625m;stack;none;1.25;0;
+NearFutureConstruction;adapter-125-0625-2;// Near Future Construction 0.6.0// Adapter - 1.25m to 2x0.625m;stack;none;1.25;0;
+NearFutureConstruction;adapter-125-0625-3;// Near Future Construction 0.6.0// Adapter - 1.25m to 3x0.625m;stack;none;1.25;0;
+NearFutureConstruction;adapter-125-0625-4;// Near Future Construction 0.6.0// Adapter - 1.25m to 4x0.625m;stack;none;1.25;0;
+NearFutureConstruction;adapter-25-125;// Near Future Construction 0.6.0// Adapter - 2.5m to 1.25m (skeletal);stack;none;2.5;0;
+NearFutureConstruction;adapter-25-multi-1;// Near Future Construction 0.6.0// Adapter - 2.5m to 2-8 0.625m;stack;none;;0;
+NearFutureConstruction;adapter-375-25-1;// Near Future Construction 0.6.0// Adapter - 3.75m to 2.5m (skeletal);stack;none;3.75;0;
+NearFutureConstruction;adapter-rad-0625;// Near Future Construction 0.6.1// Radial Adapter - 0.625m;stack;none;-1;0;
+NearFutureConstruction;adapter-rad-125;// Near Future Construction 0.6.1// Radial Adapter - 1.25m;stack;none;-1;0;
+NearFutureConstruction;docking-linear-1;// Near Future Construction 1.0// Large Linear Docking Port;stack;none;-1;1;
+NearFutureConstruction;docking-linear-2;// Near Future Construction 1.0// Small Linear Docking Port;stack;none;-1;1;
+NearFutureConstruction;truss-circular-01;// Near Future Construction 0.7.0// 5m Truss - Structural XL;free;none;-1;0;
+NearFutureConstruction;truss-circular-02;// Near Future Construction 0.7.0// 5m Truss - Structural;free;none;-1;0;
+NearFutureConstruction;truss-circular-03;// Near Future Construction 0.7.0// 5m Truss - Structural Half;free;none;-1;0;
+NearFutureConstruction;truss-circular-04;// Near Future Construction 0.7.0// 5m Truss - Structural Quarter;free;none;-1;0;
+NearFutureConstruction;truss-circular-adapter-01;// Near Future Construction 0.7.0// 5m Truss - Long Adapter;stack;none;-1;0;
+NearFutureConstruction;truss-circular-adapter-02;// Near Future Construction 0.7.0// 5m Truss - Short Adapter;stack;none;-1;0;
+NearFutureConstruction;truss-circular-docking-01;// Near Future Construction 0.7.0// Large truss to truss docking component;free;none;-1;1;
+NearFutureConstruction;truss-hex-01;// Near Future Construction 0.7.0// 1.25m Truss - Long;free;none;-1;0;
+NearFutureConstruction;truss-hex-02;// Near Future Construction 0.7.0// 1.25m Truss - Med;free;none;-1;0;
+NearFutureConstruction;truss-hex-03;// Near Future Construction 0.7.0// 1.25m Truss - Small;free;none;-1;0;
+NearFutureConstruction;truss-hex-adapter-01;// Near Future Construction 0.7.0// 1.25m Truss - Adapter;stack;none;-1;0;
+NearFutureConstruction;truss-micro-01;// Near Future Construction 1.0.0// 0.625m Truss - Long;free;none;-1;0;
+NearFutureConstruction;truss-micro-02;// Near Future Construction 1.0.0// 0.625m Truss - Medium;free;none;-1;0;
+NearFutureConstruction;truss-micro-adapter-01;// Near Future Construction 1.0.0// 0.625m Truss - Adapter;stack;none;-1;0;
+NearFutureConstruction;truss-octo-01;// Near Future Construction 0.7.0// 2.5m Truss - Structural;free;none;-1;0;
+NearFutureConstruction;truss-octo-02;// Near Future Construction 0.7.0// 2.5m Truss - Structural - Half;free;none;-1;0;
+NearFutureConstruction;truss-octo-03;// Near Future Construction 0.7.0// 2.5m Truss - Structural - Quarter;free;none;-1;0;
+NearFutureConstruction;truss-octo-04;// Near Future Construction 0.7.0// 2.5m Truss - Structural - Eighth;free;none;-1;0;
+NearFutureConstruction;truss-octo-adapter-01;// Near Future Construction 0.7.0// 2.5m Truss - Adapter;stack;none;-1;0;
+NearFutureConstruction;truss-octo-adapter-crew-01;// Near Future Construction 0.7.0// 2.5m Truss - Pressurized Adapter;stack;none;-1;0;
+NearFutureConstruction;truss-octo-angled-01;// Near Future Construction 0.7.0// 2.5m Truss angled connector;free;none;-1;0;
+NearFutureConstruction;truss-octo-angled-crew-01;// Near Future Construction 0.7.0// 2.5m Truss angled connector pressurized;free;none;-1;0;
+NearFutureConstruction;truss-octo-attach-01;// Near Future Construction 0.7.0// 2.5m Truss Attach;free;none;-1;0;
+NearFutureConstruction;truss-octo-crew-01;// Near Future Construction 0.7.0// 2.5m Truss Pressurized;free;none;-1;0;
+NearFutureConstruction;truss-octo-crew-02;// Near Future Construction 0.7.0// 2.5m Truss - Pressurized Half;free;none;-1;0;
+NearFutureConstruction;truss-octo-crew-03;// Near Future Construction 0.7.0// 2.5m Truss - Pressurized Quarter;free;none;-1;0;
+NearFutureConstruction;truss-octo-docking-125;// Near Future Construction 0.6.0// Large truss 1.25m docking component;free;none;-1;1;
+NearFutureConstruction;truss-octo-docking-25;// Near Future Construction 0.7.0// Large truss 2.5m docking component;free;none;-1;1;
+NearFutureConstruction;truss-octo-docking-octo;// Near Future Construction 0.6.0// Large truss to truss docking component;free;none;-1;1;
+NearFutureConstruction;truss-octo-drone-01;// Near Future Construction 0.7.0// 2.5m Truss - Drone Core;stack;none;-1;0;
+NearFutureConstruction;truss-octo-hub-01;// Near Future Construction 0.7.0// 2.5m truss - Hub;free;none;-1;0;
+NearFutureConstruction;truss-octo-hub-crew-01;// Near Future Construction 0.7.0// 2.5m truss - Hub;free;none;-1;0;
+NearFutureConstruction;truss-spinal-01;// Near Future Construction 0.7.2// 3.75m Truss - Spinal;free;none;-1;0;
+NearFutureConstruction;truss-spinal-02;// Near Future Construction 0.7.2// 3.75m Truss - Spinal Medium;free;none;-1;0;
+NearFutureConstruction;truss-spinal-03;// Near Future Construction 0.7.2// 3.75m Truss - Spinal Short;free;none;-1;0;
+NearFutureConstruction;truss-spinal-adapter-01;// Near Future Construction 0.7.2// 3.75m Truss - Spinal to 3.75m;stack;none;-1;0;
+NearFutureConstruction;truss-spinal-adapter-02;// Near Future Construction 0.7.2// 3.75m Truss - Spinal to 2.5m;stack;none;-1;0;
+NearFutureConstruction;truss-spinal-docking-01;// Near Future Construction 0.7.2// 3.75m Spinal Truss Docking Port;free;none;-1;1;

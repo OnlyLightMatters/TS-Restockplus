@@ -111,6 +111,12 @@ sub getScaleMethodFromPart
     # if a size exists, method is stack
     # free -> stack
     # free_square -> stack_square
+    if ( !defined $h->{part_size1} )
+    {
+        printf("=== DEBUG NO SIZE1 defined in getScaleMethodFromPart for " . $h->{part_name} . "\n") ;
+    }
+
+
     if ( $h->{part_size1} != -1 )
     {
         if ( $identified_scale_method eq "free" )
@@ -189,17 +195,18 @@ sub readAddOnFolder
             #printf("\n--------------------PART_NAME\----------------\n%s\n------\n", $part_name) ;
 
             #printf("COUCOU %s\n", $pdir ."/" .$part_name . "/" . $ppartprefix) ;
+            #ppartprefix now has to integrate the dash - if the AddOn has a partprefix
 
-            my ($item, $part_size1, $part_size2, $part_variant) = $part_name =~ /^$ppartprefix-(.*)-(\d+)-(\d+)-(\d+)$/ ;
+            my ($item, $part_size1, $part_size2, $part_variant) = $part_name =~ /^$ppartprefix(.*)-(\d+)-(\d+)-(\d+)$/ ;
 
             if ( !defined $item )
             {
-                ($item, $part_size1, $part_variant) = $part_name =~ /^$ppartprefix-(.*)-(\d+)-(\d+)$/ ;
+                ($item, $part_size1, $part_variant) = $part_name =~ /^$ppartprefix(.*)-(\d+)-(\d+)$/ ;
                 $part_size2 = -1 ;
             }
             if ( !defined $item )
             {
-                ($item, $part_variant) = $part_name =~ /^$ppartprefix-(.*)-(\d+)$/ ;
+                ($item, $part_variant) = $part_name =~ /^$ppartprefix(.*)-(\d+)$/ ;
                 $part_size1 = -1 ;
                 $part_size2 = -1 ;
 
@@ -215,7 +222,7 @@ sub readAddOnFolder
             {
                 # Example here we have a part [...]/ReStockPlus/Parts/Engine/125/restock-engine-125-valiant
                 # item is engine-125-valiant
-                ($item) = $part_name =~ /^$ppartprefix-(.*)$/ ;
+                ($item) = $part_name =~ /^$ppartprefix(.*)$/ ;
                 #printf("---DEBUG pdir/partname=%s%s---\n", $pdir, $part_name) ;
  
                 # oside is 125

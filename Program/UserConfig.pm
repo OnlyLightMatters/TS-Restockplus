@@ -25,27 +25,44 @@ our %_CONFIG = (
         #    _test_file        => The csv file for testing purposes 
         #    _out_addonname    => The name of the addon for which the pluging is produced
         #    _common_name      => Short name or common name for the source AddOn
-        {
-            _source_addonname => "Restockplus",
-            _part_prefix      => "restock",
-            _out_file         => "Restockplus_TweakScale.cfg",
-            _test_file        => "Restockplus_TweakScale.csv",
-            _out_addonname    => "TweakScaleCompanion_Restockplus",
-            _common_name      => "ReStockPlus", }, 
-        {
-            _source_addonname => "RestockRigidLegs",
-            _part_prefix      => "restock",
-            _out_file         => "RestockRigidLegs_TweakScale.cfg",
-            _test_file        => "RestockRigidLegs_TweakScale.csv",
-            _out_addonname    => "TweakScaleCompanion_Restockplus",                      
-            _common_name      => "ReStockRigidLegs",},
         # {
-        #     _source_addonname => "NearFutureSolar",
-        #     _part_prefix      => "nfs",
-        #     _out_file         => "NFS_TweakScale.cfg",
-        #     _test_file        => "NFS_TweakScale.csv",
-        #     _out_addonname    => "TweakScaleCompanion_NFS",                      
-        #     _common_name      => "NFS", },
+        #     _source_addonname => "Restockplus",
+        #     _part_prefix      => "restock-",
+        #     _out_file         => "Restockplus_TweakScale.cfg",
+        #     _test_file        => "Restockplus_TweakScale.csv",
+        #     _out_addonname    => "TweakScaleCompanion_Restockplus",
+        #     _common_name      => "ReStockPlus", }, 
+        # {
+        #     _source_addonname => "RestockRigidLegs",
+        #     _part_prefix      => "restock-",
+        #     _out_file         => "RestockRigidLegs_TweakScale.cfg",
+        #     _test_file        => "RestockRigidLegs_TweakScale.csv",
+        #     _out_addonname    => "TweakScaleCompanion_Restockplus",                      
+        #     _common_name      => "ReStockRigidLegs",},
+        # {
+        #      _source_addonname => "NearFutureSolar",
+        #      _part_prefix      => "nfs-",
+        #      _out_file         => "NFS_TweakScale.cfg",
+        #      _test_file        => "NFS_TweakScale.csv",
+        #      _out_addonname    => "TweakScaleCompanion_NF_NFS",
+        #      _common_name      => "NFS",
+        # },
+        {
+            _source_addonname => "NearFutureConstruction",
+            _part_prefix      => "",
+            _out_file         => "NFC_TweakScale.cfg",
+            _test_file        => "NFC_TweakScale.csv",
+            _out_addonname    => "TweakScaleCompanion_NF_NFC",
+            _common_name      => "NFC",
+        }, 
+        {
+            _source_addonname => "NearFutureExploration",
+            _part_prefix      => "",
+            _out_file         => "NFEX_TweakScale.cfg",
+            _test_file        => "NFEX_TweakScale.csv",
+            _out_addonname    => "TweakScaleCompanion_NF_NFEX",
+            _common_name      => "NFEX",
+        },
     ],
 ) ;
 

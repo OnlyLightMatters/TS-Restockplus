@@ -82,6 +82,7 @@ our @PREFERED_SCALE_METHOD = (
     {pod           => "stack_square"},
     {srb           => "stack"},
     {leg           => "free"},
+    {bus           => "stack"},    
     {ladder        => "free"},
     {fairing       => "stack_square"},
     {dock          => "stack"},
